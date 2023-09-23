@@ -2,6 +2,7 @@ import turtle
 import time
 import random
 
+
 win = turtle.Screen()
 win.title("Snake")
 win.setup(1200, 800)
@@ -46,14 +47,14 @@ def star_game (speed_game):
         border.hideturtle()
 
 
-#     for i in range(204,600, 10):
-#         border = turtle.Pen()
-#         border.penup()
-#         border.speed("fastest")
-#         border.color("white")
-#         border.goto(i, 0)
-#         border.write("_",font=("Arial", 24, "bold") )
-#         border.hideturtle()
+    for i in range(204,600, 10):
+        border = turtle.Pen()
+        border.penup()
+        border.speed("fastest")
+        border.color("white")
+        border.goto(i, 0)
+        border.write("_",font=("Arial", 24, "bold") )
+        border.hideturtle()
         
     name = turtle.Pen()
     name.penup()
@@ -141,7 +142,35 @@ def star_game (speed_game):
         time.sleep(0.1)
     
         if snake.xcor() > 199 or snake.xcor() < -599 or snake.ycor() > 399 or snake.ycor() < -399:
-            snake.goto(0,0)
+            win.clear()
+            win.setup(1200, 800)
+            win.bgcolor("dark slate gray")
+            win.tracer(0)
+                
+            menu = turtle.Pen()
+            menu.penup()
+            menu.speed("fastest")
+            menu.goto(-130, 100)
+            menu.color("white")
+            menu.write(" GAME OVER", font=("Arial", 30, "bold"))
+            menu.hideturtle()
+                
+            total_score_text = turtle.Pen()
+            total_score_text.penup()
+            total_score_text.speed("fastest")
+            total_score_text.goto(-160, 20)
+            total_score_text.color("white")
+            total_score_text.write("- YOUR SCORE: ", font=("Arial", 14, "bold"))
+            total_score_text.hideturtle()
+                
+            total_score_num = turtle.Pen()
+            total_score_num.penup()
+            total_score_num.speed("fastest")
+            total_score_num.color("white")
+            total_score_num.goto(30, 20)
+            total_score_num.write(score,font=("Arial", 15, "bold") )
+            total_score_num.hideturtle()
+                
         if snake.distance(food) < 30:
             item = turtle.Pen()
             item.penup()
@@ -176,10 +205,11 @@ def star_game (speed_game):
             food_3.goto(random.randint(-520, 130), random.randint(-360,360))
             score_num.clear()
             score_num.write(score, font=("Arial", 20, "bold"))
-            
-        for i in range (len(snake_body) -1, 0, -1):
-            snake_body[i].goto(snake_body[i-1].xcor(),snake_body[i-1].ycor())
-        snake_body[0].goto(snake.xcor(), snake.ycor() )
+        
+        if len(snake_body) > 0:
+            for i in range (len(snake_body) -1, 0, -1):
+                snake_body[i].goto(snake_body[i-1].xcor(),snake_body[i-1].ycor())
+            snake_body[0].goto(snake.xcor(), snake.ycor() )
         snake.forward(speed_game)
         
         for item in snake_body:
